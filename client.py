@@ -19,7 +19,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Define the port on which you want to connect
 PORT = 54321
 # connect to the server on local computer
-s.connect(('127.0.0.1', PORT))
+s.connect(('host.docker.internal', PORT))
 
 def Control(angle, speed):
     global sendBack_angle, sendBack_Speed

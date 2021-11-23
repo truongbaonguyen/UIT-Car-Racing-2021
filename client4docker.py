@@ -2,15 +2,13 @@
 import socket
 import cv2
 import numpy as np
-from keras.models import load_model
 
-global sendBack_angle, sendBack_Speed, current_speed, current_angle
+global sendBack_angle, sendBack_Speed, current_speed, current_angle, count
 sendBack_angle = 0
 sendBack_Speed = 0
 current_speed = 0
 current_angle = 0
-IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS = 132, 200, 3
-model = None
+count = 0
 
 # Create a socket object
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -28,8 +26,6 @@ def Control(angle, speed):
 
 
 if __name__ == "__main__":
-    model = load_model('./models/model22-12.h5')
-    modelsp = load_model('./models/modelsp-19.h5')
     try:
         while True:
 
@@ -38,14 +34,12 @@ if __name__ == "__main__":
                 * image: hình ảnh trả về từ xe
                 * current_speed: vận tốc hiện tại của xe
                 * current_angle: góc bẻ lái hiện tại của xe
-
             - Bạn phải dựa vào giá trị đầu vào này để tính toán và
             gán lại góc lái và tốc độ xe vào 2 biến:
                 * Biến điều khiển: sendBack_angle, sendBack_Speed
                 Trong đó:
                     + sendBack_angle (góc điều khiển): [-25, 25]
                         NOTE: ( âm là góc trái, dương là góc phải)
-
                     + sendBack_Speed (tốc độ điều khiển): [-150, 150]
                         NOTE: (âm là lùi, dương là tiến)
             """
@@ -74,19 +68,14 @@ if __name__ == "__main__":
                         ), -1
                     )
 
-                # preprocess
-                image = image[130:, :, :]
-                image = cv2.resize(image, (IMAGE_WIDTH, IMAGE_HEIGHT), cv2.INTER_AREA)
-                image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-                ret, image = cv2.threshold(image, 215, 255, cv2.THRESH_BINARY)
-                image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+                count = count + 0.001
 
-                # predict model
-                afterProcess = np.array([image])
-                angle = float(model.predict(afterProcess, batch_size=1))
-                speed = float(modelsp.predict(afterProcess, batch_size=1)) + 40
+                print(current_speed, current_angle)
+                print(image.shape)
+                # your process here
 
-                Control(angle, speed)
+                # Control(angle, speed)
+                Control(count, 100)
 
             except Exception as er:
                 print(er)

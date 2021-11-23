@@ -72,7 +72,6 @@ if __name__ == "__main__":
                 print(count)
 
                 print(current_speed, current_angle)
-                print(image.shape)
                 # your process here
 
                 # Control(angle, speed)

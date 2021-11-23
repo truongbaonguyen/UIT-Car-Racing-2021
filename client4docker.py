@@ -69,12 +69,10 @@ if __name__ == "__main__":
                         ), -1
                     )
 
-                print(current_speed, current_angle)
-                print(image.shape)
                 # your process here
 
                 # Control(angle, speed)
-                Control(25, 100)
+                Control(0, 100)
 
             except Exception as er:
                 print(er)

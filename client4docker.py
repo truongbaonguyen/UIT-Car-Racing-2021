@@ -69,6 +69,7 @@ if __name__ == "__main__":
                     )
 
                 count = count + 0.001
+                print(count)
 
                 print(current_speed, current_angle)
                 print(image.shape)

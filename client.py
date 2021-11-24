@@ -4,12 +4,11 @@ import cv2
 import numpy as np
 from keras.models import load_model
 
-global sendBack_angle, sendBack_Speed, current_speed, current_angle, count
+global sendBack_angle, sendBack_Speed, current_speed, current_angle
 sendBack_angle = 0
 sendBack_Speed = 0
 current_speed = 0
 current_angle = 0
-count = 0
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS = 132, 200, 3
 model = None
 
@@ -28,7 +27,7 @@ def Control(angle, speed):
     sendBack_Speed = speed
 
 if __name__ == "__main__":
-    model = load_model('./models/model22-12.h5')
+    model = load_model('./models/model22-05.h5')
     modelsp = load_model('./models/modelsp-19.h5')
     try:
         while True:

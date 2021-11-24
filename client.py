@@ -27,8 +27,8 @@ def Control(angle, speed):
     sendBack_Speed = speed
 
 if __name__ == "__main__":
-    model = load_model('./models/model22-05.h5')
-    modelsp = load_model('./models/modelsp-19.h5')
+    model = load_model('~/UIT-Car-Racing-2021/models/model22-05.h5')
+    modelsp = load_model('~/UIT-Car-Racing-2021/models/modelsp-19.h5')
     try:
         while True:
 

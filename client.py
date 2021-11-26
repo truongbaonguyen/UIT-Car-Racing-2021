@@ -57,13 +57,16 @@ if __name__ == "__main__":
                 # predict model
                 afterProcess = np.array([image])
                 angle = float(model.predict(afterProcess, batch_size=1))
-                if angle < 10:
-                    if angle < 3:
-                        speed = 80
+                ang = abs(angle)
+                if ang < 20:
+                    if ang < 5:
+                        speed = 70
+                    elif ang >= 5 and ang < 10:
+                        speed = 60
                     else:
-                        speed = 40
+                        speed = 50
                 else:
-                    speed = 25
+                    speed = 40
 
                 Control(angle, speed)
 

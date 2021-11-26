@@ -27,22 +27,13 @@ def Control(angle, speed):
     sendBack_Speed = speed
 
 if __name__ == "__main__":
-    model = load_model('./UIT-Car-Racing-2021/model22-05.h5')
-    modelsp = load_model('./UIT-Car-Racing-2021/modelsp-19.h5')
+    model = load_model('./model25_1-02.h5')
     try:
         while True:
 
             message_getState = bytes("0", "utf-8")
             s.sendall(message_getState)
             state_date = s.recv(100)
-
-            try:
-                current_speed, current_angle = state_date.decode(
-                    "utf-8"
-                ).split(' ')
-            except Exception as er:
-                print(er)
-                pass
 
             message = bytes(f"1 {sendBack_angle} {sendBack_Speed}", "utf-8")
             s.sendall(message)
@@ -66,7 +57,13 @@ if __name__ == "__main__":
                 # predict model
                 afterProcess = np.array([image])
                 angle = float(model.predict(afterProcess, batch_size=1))
-                speed = float(modelsp.predict(afterProcess, batch_size=1)) + 40
+                if angle < 10:
+                    if angle < 3:
+                        speed = 80
+                    else:
+                        speed = 40
+                else:
+                    speed = 25
 
                 Control(angle, speed)
 
